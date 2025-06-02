@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="icons8-god-of-war-gradient-favicons/web/favicon.png" type="image/x-icon" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <style> 
+    .frozen-task {
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: line-through;
+}
+.upgrade-btn:disabled {
+  background-color: #777 !important;
+  cursor: not-allowed;
+}
+
+
+  </style>
+</head>
+<body>
+  <img id="endGameImage" src="desk_jin.jpeg" alt="Endgame" class="hidden" style="width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 9999;" />
+  <div class="panel">
+    <div class="status_text_holder">
+      <h1 class="status_text">STATUS</h1>
+    </div>
+    <hr class="main_hr" />
+
+    <div class="middle-row">
+      <div class="level_text_holder">
+        <span class="level_text">LEVEL: 1</span>
+      </div>
+      <div class="title_text_holder">
+        <span class="title_text">TITLE: Shadow Monarch</span>
+      </div>
+    </div>
+
+    <div class="attributes">
+      <div class="upper_att">
+        <div class="daily_progress">
+          <img src="character.png" alt="EXP" class="prog_img" title="Daily EXP" />
+          <span class="dxp">: 0 EXP</span>
+        </div>
+        <div class="level_progress">
+          <img src="level-up.png" alt="Level-up" class="prog_img1" title="Level-up" />
+          <span class="lxp">: 0/300 EXP</span>
+        </div>
+      </div>
+      <hr class="sub_hr" />
+      <div class="lower_attr">
+        <div class="l1_att">
+          <div class="str">
+            <span class="att_val">
+              <img src="dumbbell.png" alt="STR" class="att_img" title="Strength" /> : 10
+            </span>
+          </div>
+          <div class="agi">
+            <span class="att_val">
+              <img src="speed.png" alt="AGI" class="att_img" title="Agility" /> : 10
+            </span>
+          </div>
+        </div>
+        <div class="l2_att">
+          <div class="vit">
+            <span class="att_val">
+              <img src="heart-beat.png" alt="VIT" class="att_img" title="Vitality" /> : 10
+            </span>
+          </div>
+          <div class="int">
+            <span class="att_val">
+              <img src="brain.png" alt="INT" class="att_img" title="Intelligence" /> : 10
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Button Row -->
+    <div class="button-row">
+      <button class="daily-quest-btn">Daily-Quest</button>
+      <button class="skills-btn">Skills</button>
+    </div>
+  </div>
+
+  <!-- ✅ Daily Quest Modal -->
+  <div id="dailyModal" class="custom-modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('dailyModal')">&times;</span>
+      <h2>Daily-Quest</h2>
+      <p>Complete your quests to earn EXP and level up!</p>
+        <div class="task-list">
+      <label class="task-row"><input type="checkbox" /> <span>Strength training</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>Play chess</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>3hr study</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>Walk 2hrs stright a day</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>Run 5k daily</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>Don't eat junk food</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>Learn AI/ML</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>Speak English</span></label>
+      <label class="task-row"><input type="checkbox" /> <span>Complete protien</span></label>
+    </div>
+
+    </div>
+  </div>
+
+  <!-- ✅ Skills Modal -->
+  <div id="skillsModal" class="custom-modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('skillsModal')">&times;</span>
+      <h2>Skills</h2>
+      <p>View and manage your unlocked skills here.</p>
+      <div class="skill-list">
+<div class="skill-row">
+    <span class="skill-name" data-skill="Artificial intelligence">Artificial intelligence<span class="skill-level" data-skill="Artificial Intelligence">– LVL 1</span></span>
+    <button class="upgrade-btn">Upgrade</button>
+</div>
+
+      <div class="skill-row">
+    <span class="skill-name" data-skill="communication">Communication<span class="skill-level" data-skill="communication">– LVL 1</span></span>
+    <button class="upgrade-btn">Upgrade</button>
+</div>
+
+<div class="skill-row">
+    <span class="skill-name" data-skill="problem solving">Problem solving<span class="skill-level" data-skill="problem solving">– LVL 1</span></span>
+    <button class="upgrade-btn">Upgrade</button>
+</div>
+
+<div class="skill-row">
+    <span class="skill-name" data-skill="performance">Performance<span class="skill-level" data-skill="performance">– LVL 1</span></span>
+    <button class="upgrade-btn">Upgrade</button>
+</div>
+
+<div class="skill-row">
+    <span class="skill-name" data-skill="speed">speed<span class="skill-level" data-skill="speed">– LVL 1</span></span>
+    <button class="upgrade-btn">Upgrade</button>
+</div>
+<div class="skill-row">
+    <span class="skill-name" data-skill="academics">Academics<span class="skill-level" data-skill="Academics">– LVL 1</span></span>
+    <button class="upgrade-btn">Upgrade</button>
+</div>
+
+  </div>
+  </div>
+  </div>
+  </body>
+
+  <!-- ✅ Modal Script -->
+<!-- <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script> -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBts3r6p8dpk6vtZp8axsiAsqM-PykhCFI",
+    authDomain: "system-solo-levelling.firebaseapp.com",
+    projectId: "system-solo-levelling",
+    storageBucket: "system-solo-levelling.firebasestorage.app",
+    messagingSenderId: "378040369219",
+    appId: "1:378040369219:web:dd9b3f2593a5f6a01bd4f6"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const docRef = db.collection("SystemUsers").doc("Player");
+
+  const baseAttributes = { str: 10, agi: 10, vit: 10, int: 10 };
+  const skillRequirements = {
+    "artificial intelligence": { attr: "int", baseIncrease: 10 },
+    "communication": { attr: "int", baseIncrease: 15 },
+    "problem solving": { attr: "int", baseIncrease: 20 },
+    "academics": { attr: "int", baseIncrease: 25 },
+    "performance": { attr: "str", baseIncrease: 10 },
+    "speed": { attr: "agi", baseIncrease: 10 }
+  };
+  const dayLabels = {
+    0: "Stretching and posture correction",
+    1: "Push day",
+    2: "Pull day",
+    3: "Leg day",
+    4: "Stretching and posture correction",
+    5: "Upper body",
+    6: "Lower body"
+  };
+
+  let attributeValues = { ...baseAttributes };
+  let skillLevels = {
+    "Artificial intelligence": 1,
+    "Communication": 1,
+    "Problem solving": 1,
+    "Performance": 1,
+    "speed": 1,
+    "Academics": 1
+  };
+  let dailyExp = 0, currentLevel = 0, levelThreshold = 300;
+  let lastSavedDate = new Date().toDateString();
+  let cloudCompletedTasks = {};
+
+  const getStoredTasks = () => cloudCompletedTasks;
+  const setStoredTasks = (data) => {
+    cloudCompletedTasks = data;
+    localStorage.setItem("completedTasksDaily", JSON.stringify(data)); // optional backup
+  };
+
+  const updateAttributesUI = () => {
+    document.querySelector('.str .att_val').innerHTML = `<img src="dumbbell.png" class="att_img" title="Strength" /> : ${attributeValues.str}`;
+    document.querySelector('.agi .att_val').innerHTML = `<img src="speed.png" class="att_img" title="Agility" /> : ${attributeValues.agi}`;
+    document.querySelector('.vit .att_val').innerHTML = `<img src="heart-beat.png" class="att_img" title="Vitality" /> : ${attributeValues.vit}`;
+    document.querySelector('.int .att_val').innerHTML = `<img src="brain.png" class="att_img" title="Intelligence" /> : ${attributeValues.int}`;
+    document.querySelector('.dxp').textContent = `: ${dailyExp} EXP`;
+    document.querySelector('.lxp').textContent = `: ${dailyExp}/${levelThreshold} EXP`;
+    document.querySelector('.level_text').textContent = `LEVEL: ${currentLevel}`;
+  };
+
+  const updateSkillLevelsUI = () => {
+    document.querySelectorAll('.skill-level').forEach(levelSpan => {
+      const skillKey = levelSpan.getAttribute('data-skill');
+      const level = skillLevels[skillKey] || 1;
+      levelSpan.textContent = `– LVL ${level}`;
+    });
+  };
+
+  const checkLevelUp = () => {
+    while (dailyExp >= levelThreshold) {
+      currentLevel += 1;
+      levelThreshold += 300 + (currentLevel * 50);
+    }
+    checkEndGame();
+  };
+
+  const checkAndUnlockSkills = () => {
+    document.querySelectorAll('.skill-row').forEach(row => {
+      const name = row.querySelector('.skill-name').getAttribute('data-skill');
+      const btn = row.querySelector('.upgrade-btn');
+      const req = skillRequirements[name.toLowerCase()];
+      const currentLevel = skillLevels[name] || 1;
+
+      if (!req) return;
+
+      if (currentLevel >= 15) {
+        btn.disabled = true;
+        btn.textContent = "Maxed";
+        btn.style.opacity = 0.5;
+        return;
+      }
+
+      const requiredAmount = req.baseIncrease + (req.baseIncrease * currentLevel);
+      const gained = attributeValues[req.attr] - baseAttributes[req.attr];
+
+      if (attributeValues[req.attr] >= 10 && gained >= requiredAmount) {
+        btn.disabled = false;
+        btn.style.opacity = 1;
+        btn.textContent = "Upgrade";
+      } else {
+        btn.disabled = true;
+        btn.style.opacity = 0.5;
+        btn.textContent = "Upgrade";
+      }
+    });
+  };
+
+  const saveAttributes = () => {
+    docRef.set({
+      attributeValues,
+      dailyExp,
+      level: currentLevel,
+      levelThreshold,
+      skillLevels,
+      lastChecked: firebase.firestore.Timestamp.now(),
+      completedTasks: cloudCompletedTasks
+    }, { merge: true });
+  };
+
+  const applyPenaltiesAndReset = () => {
+    const stored = getStoredTasks();
+    document.querySelectorAll('.task-row').forEach(row => {
+      const label = row.innerText.trim().toLowerCase();
+      if (stored[label] !== lastSavedDate && taskMap[label]) {
+        const { attr } = taskMap[label];
+        attributeValues[attr] -= 2;
+      }
+    });
+
+    if (stored["daily_python_cv_quest"] !== lastSavedDate) {
+      attributeValues["int"] -= 2;
+    }
+
+    let totalGain = 0;
+    for (let key in attributeValues) {
+      totalGain += attributeValues[key] - baseAttributes[key];
+    }
+    dailyExp = totalGain * 13;
+    checkLevelUp();
+    setStoredTasks({});
+    lastSavedDate = new Date().toDateString();
+    updateAttributesUI();
+    checkAndUnlockSkills();
+    saveAttributes();
+
+    document.querySelectorAll('.task-row').forEach(row => {
+      const checkbox = row.querySelector('input');
+      checkbox.checked = false;
+      row.classList.remove('frozen-task');
+    });
+  };
+
+  const loadCompletedTasks = () => {
+    const stored = getStoredTasks();
+    document.querySelectorAll('.task-row').forEach(row => {
+      const label = row.innerText.trim().toLowerCase();
+      const checkbox = row.querySelector('input');
+      if (stored[label] === lastSavedDate) {
+        checkbox.checked = true;
+        row.classList.add('frozen-task');
+      } else {
+        checkbox.checked = false;
+        row.classList.remove('frozen-task');
+      }
+    });
+  };
+
+  const schedulePenaltyAt11_59 = () => {
+    const now = new Date();
+    const next = new Date();
+    next.setHours(13, 58, 0, 0);
+    if (now > next) next.setDate(next.getDate() + 1);
+    const delay = next - now;
+    setTimeout(() => {
+      applyPenaltiesAndReset();
+      schedulePenaltyAt11_59();
+    }, delay);
+  };
+
+  const checkEndGame = () => {
+    if (currentLevel >= 100) {
+      document.querySelectorAll('body > *').forEach(el => el.classList.add('dust-out'));
+      setTimeout(() => {
+        document.body.innerHTML = '';
+        const bg = document.createElement('img');
+        bg.src = 'desk_jin.jpeg';
+        Object.assign(bg.style, {
+          width: '100vw', height: '100vh', objectFit: 'cover',
+          position: 'fixed', top: '0', left: '0', zIndex: '999'
+        });
+        document.body.appendChild(bg);
+        const msg = document.createElement('h1');
+        msg.textContent = 'YOU ARE NOW A GOD';
+        Object.assign(msg.style, {
+          position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          color: 'white', fontSize: '4rem', zIndex: '1000',
+          textShadow: '2px 2px 15px #000', fontFamily: `'Gill Sans', sans-serif`
+        });
+        document.body.appendChild(msg);
+      }, 2500);
+    }
+  };
+
+  const taskMap = {
+    "push day": { attr: "str", points: 3 },
+    "pull day": { attr: "str", points: 3 },
+    "leg day": { attr: "str", points: 3 },
+    "stretching and posture correction": { attr: "str", points: 2 },
+    "upper body": { attr: "str", points: 3 },
+    "lower body": { attr: "str", points: 3 },
+    "play chess": { attr: "int", points: 1 },
+    "3hr study": { attr: "int", points: 1 },
+    "speak english": { attr: "int", points: 1 },
+    "learn ai/ml": { attr: "int", points: 1 },
+    "walk 2hrs stright a day": { attr: "vit", points: 1 },
+    "don't eat junk food": { attr: "vit", points: 1 },
+    "complete protien": { attr: "vit", points: 1 },
+    "run 5k daily": { attr: "agi", points: 3 }
+  };
+
+  (async () => {
+    const docSnap = await docRef.get();
+    if (docSnap.exists) {
+      const data = docSnap.data();
+      attributeValues = data.attributeValues || attributeValues;
+      dailyExp = data.dailyExp || 0;
+      currentLevel = data.level || 0;
+      levelThreshold = data.levelThreshold || 300;
+      skillLevels = data.skillLevels || skillLevels;
+      lastSavedDate = new Date(data.lastChecked?.toDate?.() || Date.now()).toDateString();
+      cloudCompletedTasks = data.completedTasks || {};
+    }
+
+    const today = new Date().getDay();
+    const strengthLabel = dayLabels[today];
+    document.querySelectorAll('.task-row span').forEach(span => {
+      if (span.textContent.trim().toLowerCase() === "strength training") {
+        span.textContent = strengthLabel;
+      }
+    });
+
+    const pythonCvQuests = [
+      "Python basics: syntax, data types, I/O",
+      "Functions, loops, conditionals rrrrr",
+      "Lists, tuples, sets, dictionaries basics",
+      "String manipulation",
+    "File handling basics",
+    "OOP basics: classes, objects",
+    "Recursion fundamentals",
+    "Arrays and lists problem solving",
+    "Stacks and queues introduction",
+    "Practice stack/queue problems",
+    "Linked lists theory + coding",
+    "Linked lists practice problems",
+    "Trees introduction + traversal algorithms",
+    "Practice tree problems",
+    "Graphs intro + BFS, DFS",
+    "Practice graph problems",
+    "Sorting algorithms: bubble, selection, insertion",
+    "Sorting algorithms: merge sort, quick sort",
+    "Searching algorithms: linear & binary search",
+    "Practice sorting and searching problems",
+    "Hash tables: theory and coding",
+    "Practice hash problems",
+    "Dynamic programming intro + basic problems",
+    "Practice DP problems",
+    "Recap & reinforce weak data structures",
+    "Implement Python projects (small apps)",
+    "LeetCode / HackerRank problem solving",
+    "LeetCode / HackerRank problem solving",
+    "LeetCode / HackerRank problem solving",
+    "Review and prepare for next phase",
+    "Linear algebra basics: vectors & matrices",
+    "Matrix operations & properties",
+    "Matrix multiplication & inverse",
+    "Eigenvalues & eigenvectors overview",
+    "Calculus basics: limits, derivatives",
+    "Partial derivatives and gradients",
+    "Chain rule in calculus",
+    "Calculus in optimization",
+    "Probability basics",
+    "Random variables & distributions",
+    "Expectation, variance",
+    "Bayes theorem",
+    "Probability applied to machine learning",
+    "Practice math problems related to ML",
+    "Linear algebra exercises in Python",
+    "Calculus exercises using SymPy or numpy",
+    "Probability and statistics practice",
+    "Practice math problems for ML interviews",
+    "Visualizing math concepts using matplotlib",
+    "Math summary & revision",
+    "Deep dive: convolutions in CV (1)",
+    "Deep dive: convolutions in CV (2)",
+    "Deep dive: convolutions in CV (3)",
+    "Deep dive: geometric math in CV (1)",
+    "Deep dive: geometric math in CV (2)",
+    "Deep dive: geometric math in CV (3)",
+    "Deep dive: homographies",
+    "Deep dive: homographies (2)",
+    "Deep dive: projections",
+    "Deep dive: projections (2)",
+    "Python libraries: NumPy, pandas overview",
+    "NumPy arrays: creation and manipulation",
+    "Pandas DataFrames basics",
+    "Data cleaning & preprocessing techniques",
+    "Exploratory Data Analysis (EDA) steps",
+    "Visualization with matplotlib & seaborn",
+    "Handling missing data & outliers",
+    "Working with categorical & numerical data",
+    "Feature scaling and normalization",
+    "EDA on tabular datasets",
+    "Introduction to image data & formats",
+    "Image preprocessing with OpenCV & PIL",
+    "Data augmentation techniques for images",
+    "Loading and visualizing MNIST, CIFAR-10",
+    "Dataset splitting and data loaders",
+    "Practice EDA on sample image datasets",
+    "Simple classification with scikit-learn",
+    "Model evaluation metrics overview",
+    "Cross-validation and hyperparameter tuning",
+    "Basic CV pipeline build + evaluation",
+    "Mini project: EDA + basic CV classification (1)",
+    "Mini project (2)",
+    "Mini project (3)",
+    "Mini project (4)",
+    "Mini project (5)",
+    "Mini project (6)",
+    "Mini project (7)",
+    "Mini project (8)",
+    "Mini project (9)",
+    "Mini project (10)",
+    "Introduction to supervised learning",
+    "Linear regression theory & implementation",
+    "Logistic regression and classification",
+    "k-NN algorithm and coding",
+    "Decision trees and random forests",
+    "Support vector machines (SVM) basics",
+    "Evaluation metrics: precision, recall, F1",
+    "Overfitting and underfitting concepts",
+    "Ensemble methods overview",
+    "Model selection and cross-validation",
+    "Introduction to unsupervised learning",
+    "Clustering: K-means, DBSCAN",
+    "Dimensionality reduction: PCA, t-SNE",
+    "Intro to neural networks",
+    "Train your first neural network",
+    "Practice ML on image datasets (1)",
+    "Practice ML on image datasets (2)",
+    "Practice ML on image datasets (3)",
+    "Practice ML on image datasets (4)",
+    "Practice ML on image datasets (5)",
+    "Neural network basics: layers, neurons",
+    "Activation & loss functions",
+    "Training & backpropagation",
+    "Regularization (dropout, L2)",
+    "Optimizers: SGD, Adam, RMSprop",
+    "CNN basics: convolutions, filters, pooling",
+    "Build CNN on MNIST",
+    "Data augmentation techniques",
+    "Transfer learning & fine-tuning",
+    "Project: Image classification with pretrained CNN",
+    "Visualize filters & feature maps",
+    "CNN architectures: LeNet, AlexNet, VGG",
+    "Batch norm & training improvements",
+    "ResNet & skip connections",
+    "Implement simple ResNet",
+    "Object detection intro (YOLO, SSD)",
+    "Build object detection pipeline",
+    "Image segmentation: semantic vs instance",
+    "Build U-Net segmentation model",
+    "End-to-end CV project",
+    "GANs basics",
+    "Build simple GAN",
+    "Advanced GANs: DCGAN, StyleGAN",
+    "Implement DCGAN",
+    "Super-resolution techniques",
+    "Build SRCNN for super-resolution",
+    "Video processing basics",
+    "Video classification or action recognition",
+    "Optical flow & motion detection",
+    "Implement optical flow",
+    "3D CV basics: depth estimation",
+    "Stereo or monocular depth estimation project",
+    "Reinforcement learning in CV (optional)",
+    "Model interpretability: Grad-CAM",
+    "Implement Grad-CAM",
+    "Self-supervised learning in CV",
+    "Hands-on self-supervised learning project",
+    "Multimodal learning (image + other data)",
+    "Kaggle CV challenge participation",
+    "Real-time object detection app project",
+    "Deploy CV models (TensorFlow Serving, ONNX)",
+    "Portfolio project with documentation",
+    "Build/improve projects (1)",
+    "Build/improve projects (2)",
+    "Build/improve projects (3)",
+    "Build/improve projects (4)",
+    "Build/improve projects (5)",
+    "Build/improve projects (6)",
+    "Build/improve projects (7)",
+    "Build/improve projects (8)",
+    "Build/improve projects (9)",
+    "Build/improve projects (10)",
+    "Build/improve projects (11)",
+    "Build/improve projects (12)",
+    "Build/improve projects (13)",
+    "Build/improve projects (14)",
+    "Build/improve projects (15)",
+    "Build/improve projects (16)",
+    "Build/improve projects (17)",
+    "Review weak concepts (1)",
+    "Review weak concepts (2)",
+    "Review weak concepts (3)",
+    "Review weak concepts (4)",
+    "Review weak concepts (5)",
+    "Portfolio website + demos (1)",
+    "Portfolio website + demos (2)",
+    "Portfolio website + demos (3)",
+    "Portfolio website + demos (4)",
+    "Portfolio website + demos (5)",
+    "Interview prep: DS, ML, CV (1)",
+    "Interview prep (2)",
+    "Interview prep (3)",
+    "Mock interviews + Kaggle final challenge review (1)",
+    "Mock interviews (2)"
+    ];
+    const questStartDate = new Date("2025-06-3");
+    const todayDate = new Date();
+    const dayIndex = Math.floor((todayDate - questStartDate) / (1000 * 60 * 60 * 24));
+    const todayQuest = dayIndex < pythonCvQuests.length ? pythonCvQuests[dayIndex] : "Congrats! All Python & CV quests complete.";
+
+    document.querySelectorAll('.task-row').forEach(row => {
+      const span = row.querySelector('span');
+      const checkbox = row.querySelector('input');
+      if (span.textContent.trim().toLowerCase() === "learn ai/ml") {
+        span.textContent = todayQuest;
+      }
+      checkbox.addEventListener('change', function () {
+        const taskLabel = span.textContent.trim().toLowerCase();
+        const stored = getStoredTasks();
+        if (this.checked && stored[taskLabel] !== lastSavedDate) {
+          let points = 0;
+          if (taskLabel === todayQuest.toLowerCase()) {
+            attributeValues["int"] += 1;
+            stored["daily_python_cv_quest"] = lastSavedDate;
+            stored[todayQuest.toLowerCase()] = lastSavedDate;
+            points = 1;
+          } else if (taskMap[taskLabel]) {
+            const { attr, points: p } = taskMap[taskLabel];
+            attributeValues[attr] += p;
+            points = p;
+          }
+          dailyExp += points * 13;
+          checkLevelUp();
+          stored[taskLabel] = lastSavedDate;
+          setStoredTasks(stored);
+          row.classList.add('frozen-task');
+          updateAttributesUI();
+          checkAndUnlockSkills();
+          saveAttributes();
+        } else {
+          this.checked = true;
+        }
+      });
+    });
+
+    document.querySelectorAll('.upgrade-btn').forEach(button => {
+      button.addEventListener('click', function () {
+        const skillName = this.parentElement.querySelector('.skill-name').getAttribute('data-skill');
+        const req = skillRequirements[skillName.toLowerCase()];
+        const currentSkillLevel = skillLevels[skillName] || 1;
+        const requiredAmount = req.baseIncrease + (req.baseIncrease * currentSkillLevel);
+        const gained = attributeValues[req.attr] - baseAttributes[req.attr];
+        if (gained >= requiredAmount) {
+          skillLevels[skillName] = currentSkillLevel + 1;
+          this.parentElement.querySelector('.skill-level').textContent = `– LVL ${skillLevels[skillName]}`;
+          saveAttributes();
+        }
+        checkAndUnlockSkills();
+      });
+    });
+
+    document.querySelector('.daily-quest-btn').addEventListener('click', () => {
+      document.getElementById('dailyModal').classList.remove('hidden');
+    });
+    document.querySelector('.skills-btn').addEventListener('click', () => {
+      document.getElementById('skillsModal').classList.remove('hidden');
+    });
+
+    window.closeModal = function (id) {
+      document.getElementById(id).classList.add('hidden');
+    };
+
+    updateAttributesUI();
+    checkAndUnlockSkills();
+    loadCompletedTasks();
+    updateSkillLevelsUI();
+    schedulePenaltyAt11_59();
+  })();
+
+  async function resetAllDailyQuests() {
+  cloudCompletedTasks = {};
+  localStorage.removeItem("completedTasksDaily");
+  await docRef.set({ completedTasks: {} }, { merge: true }); // clears in Firestore
+  loadCompletedTasks(); // unchecks checkboxes visually
+  console.log("✅ All quests reset across devices.");
+}
+
+</script>

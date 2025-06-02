@@ -1,0 +1,144 @@
+body{
+  background: whitesmoke url(https://static.vecteezy.com/system/resources/previews/022/776/822/large_2x/colorful-sky-and-dense-clouds-in-the-evening-fantasy-skyline-for-concept-art-beautiful-twilight-or-dawn-time-wallpaper-the-scenery-of-vivid-nature-background-illustration-by-ai-generated-free-photo.jpg) center/cover no-repeat fixed;
+
+}
+.login_panel{
+    height: 400px;
+    width: 300px;
+    background-color: rgba(54, 39, 39, 0.5);
+    border: 2px solid #050707;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #0507077e, 0 0 30px #0507077e;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    margin-left: 39%;
+    margin-top: 200px;
+}
+.player_login_txt{
+    border: 2px solid transparent;
+    height: 60px;
+    width: 300px;
+    margin-top: 40px;
+}
+.type_word{
+    height: 50px;
+    width: 300px;
+    margin-top: 20px;
+    border: 2px solid transparent;
+}
+.word{
+    height: 50px;
+    width: 300px;
+    margin-top: 20px;
+    border: 2px solid transparent;
+    align-items:center;
+}
+.login_btn{
+    height: 50px;
+    width: 300px;
+    margin-top: 18px;
+    border: 2px solid transparent;
+}
+.player_login{
+    color: white;
+    -webkit-text-stroke: 2px solid #050707;
+    font-size: x-large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 23%;
+    
+}
+.word_type{
+    color: black;
+    -webkit-text-stroke: 2px solid #050707;
+    font-size: medium;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 24%;
+    
+
+}
+.pwd{
+    height: 40px;
+    width: 200px;
+    outline: none;
+    background-color: rgba(54, 39, 39, 0.5);
+    box-shadow: 0 0 15px #0507077e, 0 0 30px #0507077e;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    border: 2px solid #050707;
+    border-radius: 10px;
+    margin-left: 13%;
+    margin-top: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    text-align: center;   
+}
+.log_btn{
+    height: 40px;
+    width: 180px;
+    background-color: #59ac4c;
+    color: white;
+    font-size: large;
+    outline: none;
+    border: 2px solid #59ac4c;
+    border-radius: 12px;
+    margin-top: 6px;
+    margin-left: 21.5%;
+}
+/* ✅ Strong mobile adjustments */
+@media (max-width: 480px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login_panel {
+        width: 95%;
+        height: 550px;
+        margin-top: 130px;
+        margin-left: 10px;
+        margin-right: 0;
+        margin-bottom: 0;
+        padding: 20px;
+        border-radius: 12px;
+        box-sizing: border-box;
+    }
+
+    .player_login {
+        margin-left: 70px;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .type_word, .word, .login_btn {
+        width: 100%;
+        margin: 35px 0;
+
+    }
+
+    .pwd{
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+        height: 60px;
+        font-size: x-large;
+
+    } 
+    .log_btn {
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+        height: 55px;
+        font-size: x-large;
+    }
+
+    .word_type {
+        margin-left: 68px;
+        text-align: center;
+        font-size: 20px;
+    }
+}

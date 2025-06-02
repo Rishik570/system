@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Login</title>
+    <link rel="stylesheet" href="login1.css">
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script> -->
+
+</head>
+<body>
+    <div class="login_panel">
+        <div class="player_login_txt"><span class="player_login">PLAYER LOGIN</span></div>
+        <div class="type_word"><span class="word_type">Type the secrete "word" </span></div>
+        <div class="word"><input type="text" name="login_pwd" id="login_pwd" class="pwd"></div>
+        <div class="login_btn"><input type="button" value="login" class="log_btn" id="loginBtn"></div>
+    </div>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+<script>
+      const firebaseConfig = {
+    apiKey: "AIzaSyBts3r6p8dpk6vtZp8axsiAsqM-PykhCFI",
+    authDomain: "system-solo-levelling.firebaseapp.com",
+    projectId: "system-solo-levelling",
+    storageBucket: "system-solo-levelling.firebasestorage.app",
+    messagingSenderId: "378040369219",
+    appId: "1:378040369219:web:dd9b3f2593a5f6a01bd4f6"
+  };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const passwordInput = document.getElementById("login_pwd");
+    const loginButton = document.getElementById("loginBtn");
+
+    async function attemptLogin() {
+        const input = passwordInput.value;
+        const docRef = db.collection("SystemUsers").doc("Player");
+
+        try {
+            const docSnap = await docRef.get();
+            console.log("Document snapshot (raw):", docSnap);
+            console.log("Document exists?:", docSnap.exists);
+            console.log("Document data:", docSnap.data());
+
+
+            if (docSnap.exists) {
+                const data = docSnap.data();
+                console.log("Data found:", data);
+
+                if (input === data.password) {
+                    window.location.href = "home.html";
+                } else {
+                    alert("Incorrect word. Try again!");
+                }
+            } else {
+                alert("No such user!");
+            }
+        } catch (error) {
+            console.error("Error fetching document:", error);
+            alert("Error: " + error.message);
+        }
+    }
+
+    loginButton.addEventListener("click", attemptLogin);
+    passwordInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            attemptLogin();
+        }
+    });
+</script>
+
+</body>
+</html>

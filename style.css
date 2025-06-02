@@ -1,0 +1,476 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+/* #75ccfa */
+/* https://www.lazysnail.net/assets/2022/10/gradiant.jpg */
+/* https://static.vecteezy.com/system/resources/previews/022/776/822/large_2x/colorful-sky-and-dense-clouds-in-the-evening-fantasy-skyline-for-concept-art-beautiful-twilight-or-dawn-time-wallpaper-the-scenery-of-vivid-nature-background-illustration-by-ai-generated-free-photo.jpg */
+body {
+  background: whitesmoke url(desk_jin.jpeg) center/cover no-repeat fixed;
+  min-height: 100vh;
+  /* background-color: rgb(23, 60, 224); */
+}
+
+.panel {
+  width: 85%;
+  height: 690px;
+  margin: 20px auto 0 90px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  color: #fff;
+  background-color: rgba(54, 39, 39, 0.5);
+  border: 2px solid #050707;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #0507077e, 0 0 30px #0507077e;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.status_text_holder,
+.level_text_holder,
+.title_text_holder,
+.daily_progress,
+.level_progress {
+  border: 2px solid transparent;
+}
+
+.status_text_holder {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.middle-row {
+  display: flex;
+  gap: 5px;
+}
+
+.level_text_holder {
+  width: 150px;
+  height: 80px;
+  margin: 20px 0 0 300px;
+}
+
+.title_text_holder {
+  width: 280px;
+  height: 80px;
+  margin: 20px 0 0 160px;
+}
+
+.attributes
+s {
+  width: 658px;
+  height: 400px;
+  margin: 20px 0 0 380px;
+  border: 1px solid transparent;
+}
+
+.upper_att {
+  width: 658px;
+  height: 100px;
+  display: flex;
+  gap: 30px;
+  border: 1px solid #050707;
+  background-color: rgba(255, 255, 255, 0.058);
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-left: 270px;
+}
+.upper_att::-webkit-scrollbar{
+  background-color: transparent;
+}
+
+.lower_attr {
+  margin-top: 15px;
+  height: 250px;
+  border: 1px solid #050707;
+  background-color: rgba(255, 255, 255, 0.058);
+  border-radius: 8px;
+  margin-left: 270px;
+}
+
+.l1_att, .l2_att {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+
+.str, .agi, .vit, .int {
+  width: 284px;
+  height: 70px;
+  border: 2px solid transparent;
+}
+
+.sub_hr {
+  width: 564px;
+  border: none;
+  border-top: 1px solid transparent;
+}
+
+.main_hr {
+  width: 90%;
+  border: none;
+  border-top: 1px solid #050707;
+}
+
+.status_text {
+  margin: 0 auto;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 35px;
+  text-align: center;
+  -webkit-text-stroke: 1px #050707;
+}
+
+.level_text,
+.title_text {
+  display: inline-block;
+  margin-top: 25px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: x-large;
+  -webkit-text-stroke: 0.3px #050707;
+}
+
+.level_text { margin-left: 22px; }
+.title_text { margin-left: 8px; }
+
+.att_val {
+  display: inline-block;
+  margin: 45px 0 0 130px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: x-large;
+  -webkit-text-stroke: 1px #050707;
+}
+
+.att_img {
+  height: 30px;
+  width: 30px;
+  margin-top: 0px;
+  vertical-align:-7px;
+}
+
+.prog_img {
+  height: 50px;
+  width: 50px;
+  margin-top: 25px;
+  margin-left: 85px;
+  vertical-align: -7px;
+}
+
+.prog_img1 {
+  height: 50px;
+  width: 50px;
+  margin-top: 25px;
+  margin-left: 135px;
+  vertical-align: -7px;
+}
+
+.dxp {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 22px;
+  -webkit-text-stroke: 1.0px #050707;
+}
+
+.lxp {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 21.5px;
+  -webkit-text-stroke: 1px #050707;
+}
+
+/* =============================== */
+/* ✅ Button Section (Added) */
+/* =============================== */
+.button-row {
+  width: 588px;
+  margin: 20px 0 0 310px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.daily-quest-btn, .skills-btn {
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #fff;
+  background: rgba(54, 39, 39, 0.7);
+  border: 1px solid #050707;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #0507070a, 0 0 20px #05070702;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.058);
+  width: 300px;
+}
+
+.daily-quest-btn:hover, .skills-btn:hover {
+  background: rgba(80, 60, 60, 0.9);
+  box-shadow: 0 0 15px #05070700, 0 0 30px #05070702;
+  transform: scale(1.00);
+}
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 7, 7, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  position: relative;
+  background-color: rgba(54, 39, 39, 0.9);
+  border: 2px solid #050707;
+  border-radius: 12px;
+  padding: 30px;
+  width: 500px;
+  color: #fff;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  box-shadow: 0 0 15px #0507077e, 0 0 30px #0507077e;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.modal-content h2 {
+  font-size: 30px;
+  -webkit-text-stroke: 1px #050707;
+}
+
+.modal-content p {
+  font-size: 18px;
+  margin-top: 10px;
+  -webkit-text-stroke: 0.3px #050707;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  -webkit-text-stroke: 0.3px #050707;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #050707;
+  box-shadow: 0 0 5px #05070733;
+  width: 80%;
+  margin-left: 40px;
+}
+
+.task-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #050707;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #05070733;
+}
+
+.skill-name {
+  font-size: 18px;
+  -webkit-text-stroke: 0.3px #050707;
+}
+
+.upgrade-btn {
+  padding: 6px 16px;
+  font-size: 14px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #fff;
+  background-color: #59ac4c;
+  border: 1px solid #050707;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upgrade-btn:hover {
+  background-color: rgba(120, 90, 90, 0.9);
+}
+input[type = "checkbox"]{
+  accent-color: rgb(233, 71, 71);
+}
+/* ✅ Mobile adjustments for the index page without affecting desktop */
+@media (max-width: 480px) {
+  body{
+    overflow-x: hidden;
+    background-image: url(mob_jin.jpg);
+  }
+    .panel {
+        width: 89%;
+        margin: 20px auto;
+        height: 750px;
+        padding: 10px;
+    }
+
+    .middle-row, .upper_att, .lower_attr, .button-row {
+        flex-direction: row;
+        /* align-items: center; */
+        margin-top: -10px;
+        width: 60%;
+        white-space: nowrap;
+        overflow-y: hidden;
+        overflow-x: auto;
+        margin-left: 3px;
+    }
+
+    .attributess, .button-row {
+        width: 100% !important;
+        margin: 30px auto;
+    }
+    .level_text_holder{
+        width: 50% !important;
+        margin: 30px auto;
+        margin-left: 10px;
+    }
+    .title_text_holder{
+        width: 80% !important;
+        margin: 30px auto;
+        margin-left: 10px;
+    }
+    .middle-row{
+      width: 100%;
+      margin-left: -10px;
+    }
+    .status_text{
+      margin-left: 120px;
+      font-size: xx-large;
+      text-align: center;
+      margin-top: 12px;
+    }
+    .att_val{
+        text-align: center;
+        margin-left: 50px !important;
+        font-size: large;
+    }
+    .level_text{
+      margin-left: 10px;
+      font-size: large;
+      text-align: center;
+    }
+    .title_text{
+      text-align: center;
+      margin-left: 10px;
+      font-size: large;
+    }
+
+    .prog_img{
+        margin-left: 20px;
+        height: 31px;
+        width: 31px;
+        margin-top: 32px;
+    }
+.prog_img1{
+        margin-left: 20px;
+        height: 31px;
+        width: 31px;
+        margin-top: 32px;
+
+}
+
+    .task-row {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+    .daily-quest-btn,.skills-btn{
+      margin-left: 0px;
+      margin-top: 0px;
+      width: 331px;
+    }
+    .lxp{
+      margin-left: 0px;
+      margin-top: 20px;
+      font-size: 17px;
+      -webkit-text-stroke: 0.25px black;
+      display:inline-block ;
+    }
+    .dxp{
+        margin-left: 0px;
+        font-size: 17px;
+        -webkit-text-stroke: 0.25px black;
+        display: inline-block;
+
+    }
+     .custom-modal{
+      width: 85%;
+      margin-left: 30px;
+      background-color: transparent;
+     }
+     .att_val{
+      -webkit-text-stroke: 0.4px black;
+     }
+     .skill-name{
+      font-size: 13.9px;
+      -webkit-text-stroke: 0px solid black;
+     }
+}
+
+
+@keyframes disintegrate {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-200px, -100px) rotate(720deg);
+    filter: blur(10px);
+  }
+}
+
+.dust-out {
+  animation: disintegrate 2.5s forwards;
+  pointer-events: none;
+}
